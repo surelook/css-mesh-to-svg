@@ -17,6 +17,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     display: grid;
+    padding: 20px;
     grid-gap: 40px;
     grid-template-columns: 1.5fr 1fr;
 }
