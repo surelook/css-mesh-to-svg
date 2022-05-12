@@ -1,0 +1,26 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Mesh to SVG</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="main.js" type="module"></script>
+</head>
+<body>
+    <textarea id="cssInput">
+        background-color:hsla(237,48%,32%,1);
+        background-image:
+        radial-gradient(at 60% 72%, green 0px, transparent 50%),
+        radial-gradient(at 27% 87%, hsla(240,53%,50%,1) 0px, transparent 50%),
+        radial-gradient(at 59% 30%, hsla(265,60%,50%,1) 0px, transparent 50%),
+        radial-gradient(at 88% 40%, hsla(286,60%,50%,1) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, hsla(281,100%,90%,1) 0px, transparent 50%),
+        radial-gradient(at 10% 16%, hsla(254,87%,23%,1) 0px, transparent 50%)
+    </textarea>
+
+    <div id="cssPreview"></div>
+
+    <svg id="svg"></svg>
+</body>
+</html>
