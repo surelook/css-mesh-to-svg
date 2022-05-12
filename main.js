@@ -3,7 +3,8 @@ import { CSSRadialGradient } from './CSSRadialGradient.js';
 
 const cssInput = document.querySelector("#cssInput");
 const cssPreview = document.querySelector("#cssPreview");
-const svg = document.querySelector("#svg");
+const svgPreview = document.querySelector("#svgPreview");
+const downloadButton = document.querySelector("#downloadButton");
 
 const render = () => {
     const { value } = cssInput;
@@ -15,14 +16,14 @@ const render = () => {
     let radialGradients = backgroundImage.split('),').map(value => value + ')').map(value => new CSSRadialGradient(value))
 
     console.log(radialGradients)
-    svg.innerHTML = ''
-    svg.setAttributeNS(null, 'viewBox', '0 0 1920 1080')
-    svg.innerHTML = `   <title>Gradient 2</title>
+    svgPreview.innerHTML = ''
+    svgPreview.setAttributeNS(null, 'viewBox', '0 0 1920 1080')
+    svgPreview.innerHTML = `   <title>Gradient 2</title>
     <defs>
         ${radialGradients.map((radialGradient, index) => {
             return `<radialGradient id="gradient${index}" cx="${radialGradient.position.x}%" cy="${radialGradient.position.y}%">
-            <stop offset="0%" stop-color="${radialGradient.colorStops[0].color.rgb}" stop-opacity="${radialGradient.colorStops[0].color.alpha}"/>
-            <stop offset="100%" stop-color="${radialGradient.colorStops[0].color.rgb}" stop-opacity="0"/>
+            <stop offset="0%" stop-color="${radialGradient.colorStops[0].color.rgba}" stop-opacity="1"/>
+            <stop offset="100%" stop-color="${radialGradient.colorStops[0].color.rgba}" stop-opacity="0"/>
           </radialGradient>`
         }).join('')}
   </defs>
@@ -30,16 +31,12 @@ const render = () => {
   <rect fill="${backgroundColor.rgb}"  width="100%" height="100%" />
         ${radialGradients.map((radialGradient, index, array) => `<rect width="100%" height="100%" fill="url(#gradient${array.length - 1 - index})"/>`).join('')}
         `
-  
-  document.body.append(svg)
-
-  svg.addEventListener('click', downloadSVGasTextFile)
 }
 
-function downloadSVGasTextFile() {
+const downloadSVGasTextFile = () => {
   //get svg source.
   var serializer = new XMLSerializer();
-  var source = serializer.serializeToString(svg);
+  var source = serializer.serializeToString(svgPreview);
 
   //add name spaces.
   if(!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)){
@@ -50,20 +47,19 @@ function downloadSVGasTextFile() {
   }
 
   //add xml declaration
-source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
+  source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
 
-//convert svg source to URI data scheme.
-var url = "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(source);
-
+  //convert svg source to URI data scheme.
+  var url = "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(source);
 
   const a = document.createElement('a');
   const e = new MouseEvent('click');
   
-
-  a.download = 'download.svg';
+  a.download = 'gradient-mesh.svg';
   a.href = url
   a.dispatchEvent(e);
 }
 
-cssInput.addEventListener("input", render);
+cssInput.addEventListener('input', render);
 render()
+downloadButton.addEventListener('click', downloadSVGasTextFile)

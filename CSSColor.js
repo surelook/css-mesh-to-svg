@@ -7,6 +7,10 @@ export class CSSColor {
         return `rgb(${this.color[0]},${this.color[1]},${this.color[2]})`
     }
 
+    get rgba () {
+        return `rgb(${this.color[0]},${this.color[1]},${this.color[2]},${this.color[3] / 255 * 100}%)`
+    }
+
     get alpha () {
         return this.color[3] / 255
     }
