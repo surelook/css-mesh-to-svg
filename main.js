@@ -14,6 +14,7 @@ const render = () => {
 
     let radialGradients = backgroundImage.split('),').map(value => value + ')').map(value => new CSSRadialGradient(value))
 
+    console.log(radialGradients)
     svg.innerHTML = ''
     svg.setAttributeNS(null, 'viewBox', '0 0 1920 1080')
     svg.innerHTML = `   <title>Gradient 2</title>
@@ -27,7 +28,7 @@ const render = () => {
   </defs>
 
   <rect fill="${backgroundColor.rgb}"  width="100%" height="100%" />
-        ${radialGradients.map((radialGradient, index, array) => `<rect width="100%" height="100%" fill="url(#gradient${array.length - index})"/>`).join('')}
+        ${radialGradients.map((radialGradient, index, array) => `<rect width="100%" height="100%" fill="url(#gradient${array.length - 1 - index})"/>`).join('')}
         `
   
   document.body.append(svg)
