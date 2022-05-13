@@ -7,9 +7,16 @@
 
 #cssPreview,
 #svgPreview {
-    width: 100%;
-    aspect-ratio: 1.77777777778;
+    max-width: 100%;
+    width: calc(var(--outputWidth) * 1px);
+    max-height: 500px;
+    aspect-ratio: var(--outputWidth) / var(--outputHeight);
     border-radius: 4px;
+}
+
+#svgPreview {
+    width: auto;
+    height: auto;
 }
 
 body {
@@ -20,4 +27,8 @@ body {
     padding: 20px;
     grid-gap: 40px;
     grid-template-columns: 1.5fr 1fr;
+}
+
+section {
+    min-width: 0;
 }

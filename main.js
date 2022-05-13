@@ -2,12 +2,19 @@ import { CSSColor } from './CSSColor.js';
 import { CSSRadialGradient } from './CSSRadialGradient.js';
 
 const cssInput = document.querySelector("#cssInput");
+const widthInput = document.querySelector("#widthInput");
+const heightInput = document.querySelector("#heightInput");
 const cssPreview = document.querySelector("#cssPreview");
 const svgPreview = document.querySelector("#svgPreview");
 const downloadButton = document.querySelector("#downloadButton");
 
 const render = () => {
     const { value } = cssInput;
+    const outputWidth = widthInput.value || 1920
+    const outputHeight = heightInput.value || 1080
+  
+    document.documentElement.style.setProperty('--outputWidth', outputWidth)
+    document.documentElement.style.setProperty('--outputHeight', outputHeight)
 
     cssPreview.style = value;
 
@@ -16,8 +23,10 @@ const render = () => {
     const radialGradients = backgroundImage.split('),').map(value => value + ')').map(value => new CSSRadialGradient(value))
 
     svgPreview.innerHTML = ''
-    svgPreview.setAttributeNS(null, 'viewBox', '0 0 1920 1080')
-    svgPreview.innerHTML = `   <title>Gradient 2</title>
+    svgPreview.setAttribute('width', outputWidth)
+    svgPreview.setAttribute('height', outputHeight)
+    svgPreview.setAttribute('viewBox', `0 0 ${outputWidth} ${outputHeight}`)
+    svgPreview.innerHTML = `<title>Mesh Gradient</title>
     <defs>
         ${radialGradients.map((radialGradient, index) => {
             return `<radialGradient id="gradient${index}" cx="${radialGradient.position.x}%" cy="${radialGradient.position.y}%">
@@ -59,5 +68,7 @@ const downloadSVGasTextFile = () => {
 }
 
 cssInput.addEventListener('input', render);
+widthInput.addEventListener('input', render);
+heightInput.addEventListener('input', render);
 render()
 downloadButton.addEventListener('click', downloadSVGasTextFile)
