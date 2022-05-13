@@ -8,14 +8,13 @@ const downloadButton = document.querySelector("#downloadButton");
 
 const render = () => {
     const { value } = cssInput;
+
     cssPreview.style = value;
 
     const backgroundColor = new CSSColor(getComputedStyle(cssPreview).backgroundColor)
     const backgroundImage = getComputedStyle(cssPreview).backgroundImage
+    const radialGradients = backgroundImage.split('),').map(value => value + ')').map(value => new CSSRadialGradient(value))
 
-    let radialGradients = backgroundImage.split('),').map(value => value + ')').map(value => new CSSRadialGradient(value))
-
-    console.log(radialGradients)
     svgPreview.innerHTML = ''
     svgPreview.setAttributeNS(null, 'viewBox', '0 0 1920 1080')
     svgPreview.innerHTML = `   <title>Gradient 2</title>
@@ -35,8 +34,8 @@ const render = () => {
 
 const downloadSVGasTextFile = () => {
   //get svg source.
-  var serializer = new XMLSerializer();
-  var source = serializer.serializeToString(svgPreview);
+  const serializer = new XMLSerializer();
+  let source = serializer.serializeToString(svgPreview);
 
   //add name spaces.
   if(!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)){
@@ -50,8 +49,7 @@ const downloadSVGasTextFile = () => {
   source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
 
   //convert svg source to URI data scheme.
-  var url = "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(source);
-
+  const url = "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(source);
   const a = document.createElement('a');
   const e = new MouseEvent('click');
   
