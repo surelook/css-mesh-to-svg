@@ -4,8 +4,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSS Mesh to SVG</title>
-    <link rel="stylesheet" href="styles.css?v1">
-    <script defer src="main.js?v1" type="module"></script>
+    <link rel="stylesheet" href="styles.css?v2">
+    <script defer src="main.js?v2" type="module"></script>
 </head>
 <body>
     <section>
@@ -18,15 +18,25 @@ radial-gradient(at 59% 30%, hsla(265,60%,50%,1) 0px, transparent 50%),
 radial-gradient(at 88% 40%, hsla(286,60%,50%,1) 0px, transparent 50%),
 radial-gradient(at 100% 100%, hsla(281,100%,90%,1) 0px, transparent 50%),
 radial-gradient(at 10% 16%, hsla(254,87%,23%,1) 0px, transparent 50%)</textarea>
+
+    <br />
+    <br />
+    <label>
+        Optionaly set an ouput width and height
+    </label>
+    <br />
+    <br />
+    <input id="widthInput" type="number" min="1" placeholder="1920">
+    <input id="heightInput" type="number" min="1" placeholder="1080">
+    <br />
+    <br />
+    <button id="downloadButton">Download</button>
     </section>
     <section>
         <h3>CSS Preview</h3>
         <div id="cssPreview"></div>
         <h3>SVG Preview</h3>
-        <svg id="svgPreview"></svg>
-        <br />
-        <br />
-        <button id="downloadButton">Download</button>
+        <svg id="svgPreview" viewBox="0 0 1920 1080"></svg>
     </section>
     <section>
     </section>
